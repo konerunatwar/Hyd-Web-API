@@ -15,6 +15,8 @@ data = data = json.load(f)
 data_column = data['data_columns']
 def get_estimated_price(property_size,bhk,property_age,gym,lift,swimmingPool,location):
     loc_index = data_column.index(location.lower())
+    if bhk == 'no':
+        bhk=0
 
     x = np.zeros(len(data_column))
     x[0] = property_size
@@ -48,27 +50,6 @@ def predict_rent(data:value):
     location= data['location']
     prediction = int(get_estimated_price(property_size,bhk,property_age,gym,lift,swimmingPool,location))
     
-    #post to air table
-    endpoint='https://api.airtable.com/v0/appnaWXwqsABs8iyJ/Table%201'
-    headers = {"Authorization": "Bearer key5g3yXFYHMFX4R0","Content-Type": "application/json"}
-    if gym == 1:
-        gym = 'yes'
-    else:
-        gym = 'no'
-
-    if lift ==1:
-        lift ='yes'
-    else:
-        lift ='no'
-
-    if swimmingPool == 1:
-        swimmingPool = 'yes'
-    else:
-        swimmingPool = 'no'
-
-    data = {"records": [{"fields": {"property size": property_size,"bhk": bhk,"property age": property_age,"gym": gym,"lift": lift,"swimmingPool": swimmingPool,"location":location,"prediction":prediction}}]}
-    r = requests.post(endpoint, json=data, headers=headers)
-
     return {
         'prediction': prediction
     }
