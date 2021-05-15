@@ -8,3 +8,4 @@ class value(BaseModel):
     lift: int
     swimmingPool: int
     location: str
+    Deviceid: str
