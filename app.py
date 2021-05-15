@@ -14,6 +14,10 @@ f = open('columns.json',)
 data = data = json.load(f)
 data_column = data['data_columns']
 def get_estimated_price(property_size,bhk,property_age,gym,lift,swimmingPool,location):
+    location = location.strip()
+    gym = gym.strip()
+    lift = lift.strip()
+    swimmingPool = swimmingPool.strip()
     loc_index = data_column.index(location.lower())
     x = np.zeros(len(data_column))
     x[0] = property_size
