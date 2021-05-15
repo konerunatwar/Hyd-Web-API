@@ -46,7 +46,6 @@ def predict_rent(data:value):
     lift= data['lift']
     swimmingPool= data['swimmingPool']
     location= data['location']
-    deviceid= data['deviceid']
     prediction = int(get_estimated_price(property_size,bhk,property_age,gym,lift,swimmingPool,location))
 
     #post to air table
@@ -67,7 +66,7 @@ def predict_rent(data:value):
     else:
         swimmingPool = 'no'
 
-    data = {"records": [{"fields": {"property size": property_size,"bhk": bhk,"property age": property_age,"gym": gym,"lift": lift,"swimmingPool": swimmingPool,"location":location,"prediction":prediction,"Deviceid":deviceid}}]}
+    data = {"records": [{"fields": {"property size": property_size,"bhk": bhk,"property age": property_age,"gym": gym,"lift": lift,"swimmingPool": swimmingPool,"location":location,"prediction":prediction}}]}
     r = requests.post(endpoint, json=data, headers=headers)
 
     return {
