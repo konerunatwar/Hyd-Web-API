@@ -15,8 +15,19 @@ data = data = json.load(f)
 data_column = data['data_columns']
 def get_estimated_price(property_size,bhk,property_age,gym,lift,swimmingPool,location):
     loc_index = data_column.index(location.lower())
-    if gym == 'no'or 'no ' or 'No':
+    if gym == 'no'or 'no ' or 'No'or 'n' or 'N':
         gym=0
+    if gym == 'yes'or 'yes ' or 'Yes' or 'y' or 'Y':
+        gym=1
+    if lift == 'no'or 'no ' or 'No'or 'n' or 'N':
+        lift=0
+    if lift == 'yes'or 'yes ' or 'Yes' or 'y' or 'Y':
+        lift=1
+    if swimmingPool == 'no'or 'no ' or 'No'or 'n' or 'N':
+        swimmingPool=0
+    if swimmingPool == 'yes'or 'yes ' or 'Yes' or 'y' or 'Y':
+        swimmingPool=1
+    
 
     x = np.zeros(len(data_column))
     x[0] = property_size
