@@ -5,6 +5,6 @@ class value(BaseModel):
     bhk: int
     property_age: int
     gym: str
-    lift: int
-    swimmingPool: int
+    lift: str
+    swimmingPool: str
     location: str
