@@ -66,7 +66,7 @@ def predict_rent(data:value):
     else:
         swimmingPool = 'no'
 
-    data = {"records": [{"fields": {"property size": property_size,"bhk": bhk,"property age": property_age,"gym": gym,"lift": lift,"swimmingPool": swimmingPool,"location":location,"prediction":prediction,"Deviceid":Deviceid}}]}
+    data = {"records": [{"fields": {"property size": property_size,"bhk": bhk,"property age": property_age,"gym": gym,"lift": lift,"swimmingPool": swimmingPool,"location":location,"prediction":prediction}}]}
     r = requests.post(endpoint, json=data, headers=headers)
 
     return {
