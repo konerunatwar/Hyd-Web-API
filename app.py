@@ -47,7 +47,7 @@ def predict_rent(data:value):
     swimmingPool= data['swimmingPool']
     location= data['location']
     prediction = int(get_estimated_price(property_size,bhk,property_age,gym,lift,swimmingPool,location))
-    "Deviceid":"${device.id}"
+    
     #post to air table
     endpoint='https://api.airtable.com/v0/appnaWXwqsABs8iyJ/Table%201'
     headers = {"Authorization": "Bearer key5g3yXFYHMFX4R0","Content-Type": "application/json"}
