@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href='style.css'></link>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>House Rent Prediction</title>
+</head>
+<body>
+    <div class ="split-screen">
+        <div class ="left"><h5>Image by <a href="https://dribbble.com/marthadziura">Martha Dziura</a></h5></div>
+        <div class="right">
+            <form id="form" method="post">
+                <section class="copy">
+                    <h1>House Rent Prediction </h1>
+                </section>
+                
+                <input class="area"  type="number" id="uiSqft" name="Squareft" min="500" max="15000" autocomplete="off" placeholder="Square Feet">
+                <input class="area"  type="number" id="uiage" name="age" placeholder="Years Old">
+                <h2>BHK</h2>
+                <div class="switch-field">
+                    <input type="radio" id="radio-bhk-1" name="uiBHK" value="1" checked/>
+                    <label for="radio-bhk-1">1</label>
+                    <input type="radio" id="radio-bhk-2" name="uiBHK" value="2" />
+                    <label for="radio-bhk-2">2</label>
+                    <input type="radio" id="radio-bhk-3" name="uiBHK" value="3"/>
+                    <label for="radio-bhk-3">3</label>
+                    <input type="radio" id="radio-bhk-4" name="uiBHK" value="4"/>
+                    <label for="radio-bhk-4">4</label>
+                    <input type="radio" id="radio-bhk-5" name="uiBHK" value="5"/>
+                    <label for="radio-bhk-5">5</label>
+                </div>
+                <h2>Gym</h2>
+                <div class="switch-field">
+                    <input type="radio" id="radio-Gym-1" name="uiGym" value="1" checked/>
+                    <label for="radio-Gym-1">No</label>
+                    <input type="radio" id="radio-Gym-2" name="uiGym" value="0" />
+                    <label for="radio-Gym-2">Yes</label>
+     
+                </div>
+
+                <h2>Lift</h2>
+                <div class="switch-field">
+                    <input type="radio" id="radio-Lift-1" name="uiLift" value="1" checked/>
+                    <label for="radio-Lift-1">No</label>
+                    <input type="radio" id="radio-Lift-2" name="uiLift" value="0" />
+                    <label for="radio-Lift-2">Yes</label>
+                </div>
+                
+                <h2>SwimmingPool</h2>
+                <div class="switch-field">
+                    <input type="radio" id="radio-swimmingPool-1" name="uiswimmingPool" value="1" checked/>
+                    <label for="radio-swimmingPool-1">No</label>
+                    <input type="radio" id="radio-swimmingPool-2" name="uiswimmingPool" value="0" />
+                    <label for="radio-swimmingPool-2">Yes</label>
+                </div>
+
+                <h2>Location</h2>
+                <select class="location" name="" id="lap">
+                    <option value="" disabled="disabled" selected="selected">Choose a Location</option>
+                        <option>hitec city</option>
+                        <option>Rajaji Nagar</option>
+                </select>
+                <button class="submit" type="submit">Estimate Price</button>
+                <div id="uiEstimatedPrice" class="result">	<h2></h2> </div>
+            </form>
+          
+        </div>   
+</body>
+<script>
+    data = [" begumpet", " borabanda", " chanda nagar", " gachibowli", " hafeezpet", " jubilee hills", " kondapur", " kukatpally", " madhapur", " miyapur", " new nallakunta", " nizampet", " padmarao nagar", " ramachandra puram", " sanjeeva reddy nagar", " serilingampally", " toli chowki", " vanasthalipuram", " yousufguda", "a s rao nagar", "adibatla", "adikmet", "allwyn colony", "almasguda", "alwal", "amberpet", "ameenpur", "ameerpet", "annojiguda", "asif nagar", "attapur", "b n reddy nagar", "bachupally", "badangpet", "bagh amberpet", "bahadurguda", "bairamalguda", "bala nagar", "balaji nagar", "balanagar", "balapur", "balkampet", "bandam kommu", "bandlaguda", "banjara hills", "basheer bagh", "beeramguda", "begumpet", "begumpet airport", "bhoiguda", "boduppal", "bolarum", "bollaram", "borabanda", "bowenpally", "bowrampet", "champapet", "chanda nagar", "chengicherla", "chikkadpally", "chintal", "chintalakunta", "chintalmet", "chinthal", "dammaiguda", "dilsukhnagar", "domalguda", "dulapally", "east marredpally", "erragadda", "film nagar", "gachibowli", "gaddiannaram", "gajularamaram", "gandamguda", "gandipet", "ghatkesar", "gokul plats", "gopanapalli", "gopanpally", "gudimalkapur", "gundlapochampalli", "gurram guda", "hitec city", "habsiguda", "hafeezpet", "hakimpet", "hastinapuram", "hayathnagar", "himayath nagar", "humayun nagar", "hyder nagar", "hyderabad", "hyderguda", "hydernagar", "hydershakote", "ibrahim bagh", "izzathnagar", "jagadgiri gutta", "jawahar nagar", "jeedimetla", "jillalguda", "jubilee hills", "kphb, kukatpally", "kachiguda", "kamalaprasad nagar", "kapra", "karkhana", "karmanghat", "kavadiguda","khairtabad", "khajaguda", "kharmanghat", "kismatpur", "kistareddypet", "kohtaguda", "kokapet", "kollur", "kompally", "kondapur", "kothaguda", "kothapet", "kowkoor", "krishna reddy pet", "kukatpally", "kushaiguda", "l. b. nagar", "lakdikapul", "langar houz", "lingampally", "madeenaguda", "madhapur", "madhura nagar", "madinaguda", "mahadevpur colony", "malakpet", "malkajgiri", "mallampet", "mallapur", "manikonda", "mansoorabad", "masab tank", "masjid banda", "medipalli", "meerpet", "mehdipatnam", "mettuguda", "miyapur", "moosapet", "moosarambagh", "moti nagar", "moula ali", "musheerabad", "nacharam", "nadergul", "nagaram", "nagole", "nallagandla, serilingampally", "nallakunta", "nampally", "nanakramguda", "narayanguda", "narsingi", "neknampur", "neredmet", "new bowenpally", "new nallakunta", "nizampet", "old alwal", "old bowenpally", "old malakpet", "osman nagar", "others", "padmarao nagar", "patancheru", "patancheruvu", "peeramcheru", "peerzadiguda", "pocharam", "pragathi nagar", "punjagutta", "puppalaguda", "quthbullapur", "qutub shahi tombs", "rajendranagar mandal", "ram nagar", "ramnaresh nagar", "ramachandra puram", "ramanthapur", "ramgopalpet", "rampally", "ranga reddy district", "rasoolpura", "rodamestri nagar", "safilguda", "saidabad", "sainikpuri", "sanath nagar", "sanjeeva reddy nagar", "santosh nagar", "saroornagar", "secunderabad", "serilingampalle", "shaikpet", "shamirpet", "shamshabad", "shamshiguda", "shilpa hills", "shivaji nagar", "somajiguda", "sun city", "suraram", "tarnaka", "tellapur", "toli chowki", "trimulgherry", "turkayamjal", "uppal", "upparpally", "vanasthalipuram", "vijaya nagar colony", "vivekananda nagar, kukatpally", "warasiguda", "west marredpally", "whisper valley", "whitefields", "yapral", "yella reddy guda", "yousufguda", "zamistanpur", "kondapur", "kukatpally", "nizampet"]
+    fLen = data.length;
+    var uiLocations = document.getElementById("lap");
+    $('#lap').empty();
+    for(i = 0; i < fLen; i++) {
+        var opt = new Option(data[i]);
+        $('#lap').append(opt);
+    }
+
+    function getBHKValue() {
+    var uiBHK = document.getElementsByName("uiBHK");
+    for(var i in uiBHK) {
+        if(uiBHK[i].checked) {
+            return parseInt(i)+1;
+        }
+    }
+    return; -1// Invalid Value
+}
+
+    function getGymValue() {
+    var uiGym = document.getElementsByName("uiGym");
+    for(var i in uiGym) {
+        if(uiGym[i].checked) {
+            return parseInt(i);
+        }
+    }
+    return ; // Invalid Value
+}
+    function getLiftValue() {
+    var uiLift = document.getElementsByName("uiLift");
+    for(var i in uiLift) {
+        if(uiLift
+        [i].checked) {
+            return parseInt(i);
+        }
+    }
+    return ; // Invalid Value
+}
+    function getswimmingPoolValue() {
+    var uiswimmingPool = document.getElementsByName("uiswimmingPool");
+    for(var i in uiswimmingPool) {
+        if(uiswimmingPool[i].checked) {
+            return parseInt(i);
+        }
+    }
+    return ; // Invalid Value
+}
+
+
+    var form = document.getElementById('form')
+
+    form.addEventListener('submit',function(e){
+
+        e.preventDefault()
+
+        var sqftt = document.getElementById('uiSqft').value
+        var BHK = getBHKValue();
+        var agee = document.getElementById('uiage').value
+        var gymss = getGymValue();
+        var Liftss = getLiftValue()
+        var SwimmingPoolss = getswimmingPoolValue()
+        var d = document.getElementById('lap');
+        var disp = d.options[d.selectedIndex].text;
+
+        fetch("https://hyd-web-app.herokuapp.com/predict",{
+            method:'POST',
+            
+            body:JSON.stringify({
+                "property_size": sqftt,
+                "bhk": BHK,
+                "property_age": agee,
+                "gym": gymss,
+                "lift": Liftss,
+                "swimmingPool": SwimmingPoolss,
+                "location": disp,
+            }),
+            headers:{
+                "Content-Type": "application/json; charset=UTF-8"
+            }
+        })
+        .then(function(response){
+            return response.json()
+        })
+        .then(function(data){
+            console.log(data)
+            var results = document.getElementById('uiEstimatedPrice')
+            results.innerHTML = `<p>Your Predected Rent is ${data.prediction}</p>`
+        })
+    })
+</script>
+</html>
