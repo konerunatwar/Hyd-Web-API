@@ -32,10 +32,7 @@ def get_estimated_price(property_size,bhk,property_age,gym,lift,swimmingPool,loc
     x[0] = property_size
     x[1] = bhk
     x[2] = property_age
-    if gym == 'true':
-        x[3] = 1
-    else:
-        x[3] = 0
+    x[3] = gym
     x[4] = lift
     x[5] = swimmingPool 
     x[loc_index] = 1
